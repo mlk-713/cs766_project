@@ -1,3 +1,28 @@
+### Contents
+
+- [Problem Definition](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#problem-definition)
+- [Motivation](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#motivation)
+- [Approach](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#approach) (is this different from implementation?)
+- [Implementation](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#implementation)
+- [Results Discussion](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#results-discussion)
+- [Problems and Possible Improvements](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#problems-and-possible-improvements)
+- [Gallery](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#gallery)
+
+## Problem Definition
+
+## Motivation
+
+## Approach
+
+## Implementation
+
+## Results Discussion
+
+## Problems and Possible Improvements
+
+## Gallery
+
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
