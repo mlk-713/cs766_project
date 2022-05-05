@@ -23,6 +23,10 @@
 ## Implementation
   First we gathered sample sets of a few pick-up sticks to work with. We started by experimenting with a few different backgrounds, but eventually settled on just using a simple black paper background.  Once that was decided, we positioned a camera above the scene and captured multiple sample images without changing its position.  The images captured this way were zoomed out farther than desired, so we then cropped them all to better focus on the region of interest while keeping them all the same size.  These images only contain a few sticks, less than ten, and the sticks are either all in different colors or all in the same color.  Having developed a clear method for capturing images, once we get the project working on the simple set of images, we can then easily create more complex images for further testing and development.
   
+  We will use the following image as a running example throughout our explanation of our implementation:
+  
+  ![base image](./simple_mc_6_6.png)
+  
   Next, given these pictures, we first tried to clean up the results. Ideally we wanted to use the hough line detection methodology to identify the lines that represented the pickup sticks. This required converting this image to black and white. Unfortunately, our background was not precisely black, or otherwise this would be quite trivial. Because of this, we first converted these images to grayscale, and utilized the following imbinarize code:
   
 ```matlab
@@ -53,15 +57,15 @@ improfile(img,testx,testy)
 
   This function helps us analyze the pixel intensities of the color channels. We then looked at the two lines involved in each intersection, and calculate their average pixel intensities across the entire line as a baseline. We took a small region of interest around the intersection point, and averaged the pixel intensities there. Finally, we compared the profile of the region of interest with both of the lines in order to determine which line matched the region of interest closest (which indicates which stick is on top). 
 
-  Once we aquired the top stick information, we could then scan through all the intersections and create to create a digraph representing the pile.  In this representation, sticks were converted to nodes, and overlap points became edges, with the edge starting at the node representing the top stick and going into the node representing the bottom stick.  We did this in code by creating a matrix representation of the digraph.  We then called the graph() function on the matrix to get our digraph. So our running example's digraph, simplified slightly for clarity, is as follows:
+  Once we aquired the top stick information, we could then scan through all the intersections and create to create a digraph representing the pile.  In this representation, sticks were converted to nodes, and overlap points became edges, with the edge starting at the node representing the top stick and going into the node representing the bottom stick.  We did this in code by creating a matrix representation of the digraph.  We then called the graph() function on the matrix to get our digraph. Our running example's digraph, simplified slightly for clarity, is pictured on the left with the stick labels shown on the right for reference:
   
   <p align="center">
-  <img width="500" src="./labels_digraph_example.png"> <img width="500" src="./digraph_example.png">
+  <img width="400" src="./digraph_example.png"> <img width="400" src="./labels_digraph_example.png">
   </p>
   
-  With the digraph representation, we simply called toposort and got a topological ordering of the nodes, and therefore the sticks.  As a final step we modify this order to prioritize isolated sticks as first in the order.  Once this is done, we have our order for picking up the sticks and can display it on the original image:
+  Using the digraph representation, we simply called the toposort() function and got a topological ordering of the nodes, and therefore the sticks.  As a final step we modify this order to prioritize isolated sticks as first in the order.  Once this is done, we have our order for picking up the sticks and can display it on the original image as our final output:
   
-  insert image
+  ![example output](./simple_mc_6_6-out.png)
 
   We also looked at the possibility of detecting load bearing sticks, sticks that weigh down other sticks. Removal of load bearing sticks could cause other sticks to tilt or move. While the algorithm is far from perfect due to time constraints, it provides a proof of concept for feasibility of accomplishing this task. Our algorithm first looks at sticks which could be affected by load bearing sticks. Essentially, we looked at all the intersection points that are associated with each stick, and only considers a stick to be potential "load-beared" stick if it has 2 or more intersection points (because it needs a pivot intersection underneath and a weight intersection on top). If a stick has 2 or more intersections an at least one intersection above and below, we attempt to find the right most and left most pivot. The intuition here is that any stick underneath another either to the right but not the right most or to the left but not left most cannot act as a pivot stick. Once we determied the pivot points, we check any sticks on top of the "load-beared" stick, and determine if it lies further away from the center than the pivot point. If it does, it should be classified as a load bearing stick.
 
