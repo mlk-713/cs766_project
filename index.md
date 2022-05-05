@@ -16,8 +16,35 @@
   At its core this problem encompasses fundamentals of computer vision such as edge detection and object identification while also providing a simple foundation for exploring more complex topics as time allows.  As an example, we might improve our program’s design by adding some form of consideration for the physics that govern one stick’s behavior when another stick is removed.
 
 ## Approach
+  This objective is similar to that of a well known problem, bin picking. In bin picking, the objective is to identify objects in a bin and retrieve them. The differences between pick-up sticks and bin picking include the need to remove objects without interfering with other objects, and determining the order in which you need to retrieve the objects.  There were little to no previous research in the area of pick-up sticks, and we decided to approach this problem algorithmically rather than using a machine learning process because of the lack of good training datasets.
+  
+  The first steps will certainly be to create datasets to test and refine our algorithm. Next, we need to process the image and develop a way to recognize the individual sticks that make up a pile.  From there, we need to get other features of the pile such as the points where sticks overlap. Finally, we need to output the order of sticks from the ones on top to the bottom. Finally, we looked into factoring in load bearing sticks.
 
 ## Implementation
+  First we gathered sample sets of a few pick-up sticks to work with. We started by experimenting with a few different backgrounds, but eventually settled on just using a simple black paper background.  Once that was decided, we positioned a camera above the scene and captured multiple sample images without changing its position.  The images captured this way were zoomed out farther than desired, so we then cropped them all to better focus on the region of interest while keeping them all the same size.  These images only contain a few sticks, less than ten, and the sticks are either all in different colors or all in the same color.  Having developed a clear method for capturing images, once we get the project working on the simple set of images, we can then easily create more complex images for further testing and development.
+  
+  Next, given these pictures, we first tried to clean up the results. Ideally we wanted to use the hough line detection methodology to identify the lines that represented the pickup sticks. This required converting this image to black and white. Unfortunately, our background was not precisely black, or otherwise this would be quite trivial. Because of this, we first converted these images to grayscale, and utilized the following imbinarize code:
+bw_img=imbinarize(trim_gray_img,'adaptive','ForegroundPolarity','bright','Sensitivity',0.5);
+
+  This got us pretty clean black and white image to work with, and we used dilation and erosion to finalize the cleaning process. Next, we needed to find the lines representing the pickup sticks. We utilized Hough peaks and Hough lines in order to do so: 
+
+[H,T,R] = hough(clean_img);
+P  = houghpeaks(H,6,'threshold',ceil(0.5*max(H(:))));
+lines = houghlines(clean_img,T,R,P,'FillGap',5,'MinLength',7);
+
+  However, these hough lines weren’t the most clean. While they did encompass the 6 pickup sticks, there were noise hough lines that were either very short or very long. Thus, we went through and found the average length of the hough lines (hoping that this represented the general length of the pickup sticks) and only selected hough lines that fit within a boundary of this average. This yielded great results.
+
+  Once we had the lines, we needed to figure out where the sticks intersected since those are the points of interest in a game of pick-up sticks. In order to do so, we utilized line equations and determinants in order to find every possible combination of intersections among the lines. This requires (n-1)+(n-2)+...+(1) calculations, which isn’t too bad. Finally, we only save the intersections that lie on both of the lines (since intersections can be a point in the distance where the points eventually intersect).
+
+  With the intersections, it is possible to save the lines involved in the intersections, and the next challenge is identifying the stick at the top. We ised a simpler version of pick-up sticks where each of the sticks are of different color. This allows us to do pixel analysis on the original image. We essentially take both lines involved, and run:
+
+improfile(img,testx,testy)
+
+  This function helps us analyze the pixel intensities of the color channels. We then looked at the two lines involved in each intersection, and calculate their average pixel intensities across the entire line as a baseline. We took a small region of interest around the intersection point, and averaged the pixel intensities there. Finally, we compared the profile of the region of interest with both of the lines in order to determine which line matched the region of interest closest (which indicates which stick is on top). 
+
+Add the di-graph information here
+
+  We also looked at the possibility of detecting load bearing sticks, sticks that weigh down other sticks. Removal of load bearing sticks could cause other sticks to tilt or move. While the algorithm is far from perfect due to time constraints, it provides a proof of concept for feasibility of accomplishing this task. Our algorithm first looks at sticks which could be affected by load bearing sticks. Essentially, we looked at all the intersection points that are associated with each stick, and only considers a stick to be potential "load-beared" stick if it has 2 or more intersection points (because it needs a pivot intersection underneath and a weight intersection on top). If a stick has 2 or more intersections an at least one intersection above and below, we attempt to find the right most and left most pivot. The intuition here is that any stick underneath another either to the right but not the right most or to the left but not left most 
 
 ## Results Discussion
 Test
