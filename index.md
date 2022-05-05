@@ -39,11 +39,11 @@ lines = houghlines(clean_img,T,R,P,'FillGap',5,'MinLength',7);
 
   However, these hough lines weren’t the most clean. While they did encompass the 6 pickup sticks, there were noise hough lines that were either very short or very long. Thus, we went through and found the average length of the hough lines (hoping that this represented the general length of the pickup sticks) and only selected hough lines that fit within a boundary of this average. This yielded great results, as seen below.
   
-  insert image
+  ![line example](./lines_example.png)
 
   Once we had the lines, we needed to figure out where the sticks intersected since those are the points of interest in a game of pick-up sticks. In order to do so, we utilized line equations and determinants in order to find every possible combination of intersections among the lines. This requires (n-1)+(n-2)+...+(1) calculations, which isn’t too bad. Finally, we only save the intersections that lie on both of the lines (since intersections can be a point in the distance where the points eventually intersect).  This gave us the following resulting view when plotted with the lines.
   
-  insert image
+  ![intersection example](./intersection_example.png)
 
   With the intersections, it is possible to save the lines involved in the intersections, and the next challenge is identifying the stick at the top. We ised a simpler version of pick-up sticks where each of the sticks are of different color. This allows us to do pixel analysis on the original image. We essentially take both lines involved, and run:
 
@@ -55,7 +55,9 @@ improfile(img,testx,testy)
 
   Once we aquired the top stick information, we could then scan through all the intersections and create to create a digraph representing the pile.  In this representation, sticks were converted to nodes, and overlap points became edges, with the edge starting at the node representing the top stick and going into the node representing the bottom stick.  We did this in code by creating a matrix representation of the digraph.  We then called the graph() function on the matrix to get our digraph. So our running example's digraph, simplified slightly for clarity, is as follows:
   
-  insert image
+  <p align="center">
+  <img width="500" src="./labels_digraph_example.png"> <img width="500" src="./digraph_example.png">
+  </p>
   
   With the digraph representation, we simply called toposort and got a topological ordering of the nodes, and therefore the sticks.  As a final step we modify this order to prioritize isolated sticks as first in the order.  Once this is done, we have our order for picking up the sticks and can display it on the original image:
   
