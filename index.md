@@ -13,12 +13,11 @@
 
 ## Motivation
 
-  At its core this problem encompasses fundamentals of computer vision such as edge detection and object identification while also providing a simple foundation for exploring more complex topics as time allows.  As an example, we might improve our program’s design by adding some form of consideration for the physics that govern one stick’s behavior when another stick is removed.
+  We primarily decided on this project because we thought it would be a fun, easily understandable problem to approach.  It also felt like the game of pick-up sticks could naturally be extended to the more important problems.  For example, clearing rubble in search and rescue shares the importance of minimal disturbance while removing items. Furthermore, while researching possible approaches we learned that most, if not all, related research on the topic is based on machine learning techniques.  Thus it was enticing to think we were pursuing a novel approach to this type of problem.
 
 ## Approach
-  This objective is similar to that of a well known problem, bin picking. In bin picking, the objective is to identify objects in a bin and retrieve them. The differences between pick-up sticks and bin picking include the need to remove objects without interfering with other objects, and determining the order in which you need to retrieve the objects.  There were little to no previous research in the area of pick-up sticks, and we decided to approach this problem algorithmically rather than using a machine learning process because of the lack of good training datasets.
-  
-  The first steps will certainly be to create datasets to test and refine our algorithm. Next, we need to process the image and develop a way to recognize the individual sticks that make up a pile.  From there, we need to get other features of the pile such as the points where sticks overlap. Finally, we need to output the order of sticks from the ones on top to the bottom. Finally, we looked into factoring in load bearing sticks.
+  The objective of our project is similar to that of a well known problem, bin picking.  In bin picking, the goal is to identify objects in a bin and how to best retrieve them. The key difference between pick-up sticks and bin picking is the need to remove objects without interfering with other objects.  As mentioned above, most bin picking technology is based in machine learning.  So, it is likely that we could have readily adapted existing machine learning approaches to our problem.  However, we decided to instead pursue an algorithm based approach since it seemed to be unexplored and we were not up to the task of creating a large enough dataset for machine learning techniques.
+  With this in mind we split the design into three key components.  First, we had to identify sticks and the points at which sticks overlap.  Second, we need to determine which stick is on top of the other at said overlap points.  Third, using all these features, we needed to create a digraph to represent the pile of sticks and compute a topological order.  Completing these three components would be synonomous with completing the project, and this understanding helped us keep a steady pace while implementing our design.
 
 ## Implementation
   Our first step was to create a collection of images to use for the project.  We started by experimenting with a few different backgrounds, but eventually settled on just using a simple black paper background.  Once that was decided, we positioned a camera above the scene and captured multiple sample images without changing its position.  The images captured this way were zoomed out farther than desired, so we then cropped them all to better focus on the region of interest while keeping them all the same size.  Of these images, we will use the following image as a running example throughout our explanation of our implementation, and include other examples in the [gallery](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#gallery).
@@ -78,46 +77,8 @@ improfile(img,line_x,line_y)
   
 ## Conclusion
 
-Overall, while we are aware of numerous possible improvements to our project, we are very happy with what we have achieved up to this point.  We managed to create a working algorithmic approach using nothing but a few convenient library functions and our own ingenuity.  It has its flaws, and it required a fair bit of effort to figure out the different aspects of the implementation, but we have a working final result and we both learned a lot.  As a result, we are quite happy with our project, and look forward to future studies.
+  Overall, while we are aware of numerous possible improvements to our project, we are very happy with what we have achieved up to this point.  We managed to create a working algorithmic approach using nothing but a few convenient library functions and our own ingenuity.  It has its flaws, and it required a fair bit of effort to figure out the different aspects of the implementation, but we have a working final result and we both learned a lot.  As a result, we are quite happy with our project, and look forward to future studies.
   
 ## Gallery
 
-# Below this is just the default page text, it's useful to reference. (will delete later)
-
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mlk-713/cs766_project/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+TODO insert images
