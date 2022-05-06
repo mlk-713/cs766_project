@@ -83,7 +83,8 @@ improfile(img,line_x,line_y)
 
 Note that most images are ran without the "loadbearing" option.  Since the warning labels are not a gaurantee of load bearing issues in our current design we left them off for the images we knew did not have load bearing features.  If you're curious to see which ones get load bearing flags anyways, you can use the same runProject example call with the "loadbearing" option after the stick count.  For example, `runProject("rand_mc_6_4.JPG", 6, "loadbearing")` flags a stick that is not actually an issue.
 
-- Our most basic example: `runProject("simple_mc_3_1.JPG", 3)`
+- Our most basic example: 
+  `runProject("simple_mc_3_1.JPG", 3)`
 
 ![3_1 image](./simple_mc_3_1-out.png)
 
@@ -91,7 +92,8 @@ Note that most images are ran without the "loadbearing" option.  Since the warni
 
 ![3_2 image](./simple_mc_3_2-out.png)
 
-- A sanity check image to make sure our code did not break when no overlap points were present: `runProject("simple_mc_4_0JPG", 3)`
+- A sanity check image to make sure our code did not break when no overlap points were present: 
+  `runProject("simple_mc_4_0JPG", 3)`
 
 ![4_0 image](./simple_mc_4_0-out.png)
 
@@ -115,19 +117,23 @@ Note that most images are ran without the "loadbearing" option.  Since the warni
 
 ![4_5 image](./simple_mc_4_5-out.png)
 
-- An adversarial image with 13 intersetions: `runProject("simple_mc_6_13.JPG", 6)`
+- An adversarial image with 13 intersetions: 
+  `runProject("simple_mc_6_13.JPG", 6)`
 
 ![6_13 image](./simple_mc_6_13-out.png)
 
-- One of many random piles we made according to the game rules of dropping the sticks: `runProject("simple_mc_6_1a.JPG", 6)`
+- One of many random piles we made according to the game rules of dropping the sticks: 
+  `runProject("simple_mc_6_1a.JPG", 6)`
 
 ![6_1a image](./rand_mc_6_1a-out.png)
 
-- Here you can see our line detection being stressed: `runProject("simple_mc_6_1b.JPG", 6)`
+- Here you can see our line detection being stressed: 
+  `runProject("simple_mc_6_1b.JPG", 6)`
 
 ![6_1b image](./rand_mc_6_1b-out.png)
 
-- One of the more interesting random piles we tested on: `runProject("simple_mc_6_4.JPG", 6)`
+- One of the more interesting random piles we tested on:
+  `runProject("simple_mc_6_4.JPG", 6)`
 
 ![6_4 image](./rand_mc_6_4-out.png)
 
