@@ -56,7 +56,7 @@ improfile(img,line_x,line_y)
 
   Once we aquired the top stick information, we could then scan through all the intersections to create a digraph representing the pile.  In this representation, sticks were converted to nodes and overlap points became edges such that an edge started at the node representing the top stick and ended at the node representing the bottom stick.  We did this in the code by creating a matrix representation of the digraph.  We then called the graph() function on the matrix to get our digraph.
   
-  (Our running example's digraph, simplified slightly for clarity, is pictured on the left with the stick labels shown on the right for reference.)
+  (Our running example's digraph, adjusted slightly for clarity, is pictured with the stick labels shown in an image for reference.)
   
   <p align="center">
   <img width="400" src="./digraph_example.png"> <img width="400" src="./labels_digraph_example.png">
