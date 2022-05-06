@@ -1,12 +1,12 @@
 ### Contents
 
-- [Problem Definition](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#problem-definition)
-- [Motivation](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#motivation)
-- [Approach](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#approach)
-- [Implementation](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#implementation)
-- [Results Discussion](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#results-discussion)
-- [Conclusion](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#conclusion)
-- [Gallery](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#gallery)
+- [Problem Definition](https://mlk-713.github.io/cs766_project/#problem-definition)
+- [Motivation](https://mlk-713.github.io/cs766_project/#motivation)
+- [Approach](https://mlk-713.github.io/cs766_project/#approach)
+- [Implementation](https://mlk-713.github.io/cs766_project/#implementation)
+- [Results Discussion](https://mlk-713.github.io/cs766_project/#results-discussion)
+- [Conclusion](https://mlk-713.github.io/cs766_project/#conclusion)
+- [Gallery](https://mlk-713.github.io/cs766_project/#gallery)
 
 ## Problem Definition
   For our project we decided to create a computer vision program that is capable of "playing" the game pick-up sticks.  In the game of pick-up sticks, players take turns trying to remove sticks from a random pile without disturbing the other sticks.  During their turn, a player can continue to pick up individual sticks until they either cause a disturbance or deplete the pile.  With this in mind, we focused on designing a program capable of describing an optimal order in which to continuously pick up sticks without disturbing other sticks.  To help maintain a reasonable scope for the project we decided to ignore the point system and advanced rules of pick-up sticks.  We also required that each stick be a unique color, which also ended up limiting the max number of sticks we could include in our test images.  This gave as a simple, clearly defined goal for the project; given an image of a simple pile of sticks, describe a best order in which to pick them up.
