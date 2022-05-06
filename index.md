@@ -2,7 +2,7 @@
 
 - [Problem Definition](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#problem-definition)
 - [Motivation](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#motivation)
-- [Approach](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#approach) (is this different from implementation?)
+- [Approach](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#approach)
 - [Implementation](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#implementation)
 - [Results Discussion](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#results-discussion)
 - [Conclusion](https://github.com/mlk-713/cs766_project/edit/gh-pages/index.md#conclusion)
@@ -68,7 +68,7 @@ improfile(img,line_x,line_y)
 
   Finally, we also looked at the possibility of detecting load imparting sticks, sticks that weigh down other sticks. Removal of load imparting sticks could cause affected sticks to tilt or move. While the algorithm is far from perfect due to time constraints, it provides a proof of concept for feasibility of accomplishing this task. Our algorithm first looks at sticks which could be affected by load imparting sticks. Essentially, we looked at all the intersection points that are associated with each stick, and only consider a stick to be potential load bearing stick if it has two or more intersection points (because it needs a pivot intersection underneath and a weight intersection on top). If a stick has two or more intersections and at least one intersection above and below, we attempt to find the right most and left most pivot. The intuition here is that any stick underneath another either to the right but not the right most or to the left but not left most cannot act as a pivot stick. Once we determied the pivot points, we check any sticks on top of the load bearing stick, and determine if it lies further away from the center than the pivot point. If it does, it should be classified as a load imparting stick and flagged with an "lb?" as a warning in the output.
   
-  [load bearing example]
+  ![load bearing example](./load-bearing_1-out.png)
 
 ## Results Discussion
   Manual inspection of the output orders from our program showed that our algorithm and implementation worked well.  We tested a diverse collection of images with 3 or 4 differently colored sticks, as well as images with more sticks or load bearing sticks. In each case, the algorithm was able to correctly identify the sticks in question, and the ordering of sticks from top to bottom. The load bearing algorithm also identifies which sticks could be potentially load imparting, though there are improvements to be made. Notably, if there are multiple sticks that could be load imparting but can be removed in such a way that results in no disturbance, our algorithm just labels all possible load imparting sticks, and assigns them a position in the order as usual without consideration of possible orders that address the load bearing issue. Another problem is the difficulty of accounting for the weight of the pick-up sticks, and in our load bearing results, we occasionally mislabel non-load imparting sticks as possibly load imparting because the sticks didn't have enough weight to pivot the sticks below them.  Due to this, we left load bearing as an optional feature of our final program, requiring "load bearing" to be passed as an argument to our control function, runProject().
@@ -81,4 +81,57 @@ improfile(img,line_x,line_y)
   
 ## Gallery
 
-TODO insert images
+Note that most images are ran without the "loadbearing" option.  Since the warning labels are not a gaurantee of load bearing issues in our current design we left them off for the images we knew did not have load bearing features.  If you're curious to see which ones get load bearing flags anyways, you can use the same runProject example call with the "loadbearing" option after the stick count.  For example, `runProject("rand_mc_6_4.JPG", 6, "loadbearing")` flags a stick that is not actually an issue.
+
+- Our most basic example: `runProject("simple_mc_3_1.JPG", 3)`
+
+![3_1 image](./simple_mc_3_1-out.png)
+
+- `runProject("simple_mc_3_2.JPG", 3)`
+
+![3_2 image](./simple_mc_3_2-out.png)
+
+- A sanity check image to make sure our code did not break when no overlap points were present: `runProject("simple_mc_4_0JPG", 3)`
+
+![4_0 image](./simple_mc_4_0-out.png)
+
+- `runProject("simple_mc_4_1.JPG", 4)`
+
+![4_1 image](./simple_mc_4_1-out.png)
+
+- `runProject("simple_mc_4_2.JPG", 4)`
+
+![4_2 image](./simple_mc_4_2-out.png)
+
+- `runProject("simple_mc_4_3.JPG", 4)`
+
+![4_3 image](./simple_mc_4_3-out.png)
+
+- `runProject("simple_mc_4_4.JPG", 4)`
+
+![4_4 image](./simple_mc_4_4-out.png)
+
+- `runProject("simple_mc_4_5.JPG", 4)`
+
+![4_5 image](./simple_mc_4_5-out.png)
+
+- An adversarial image with 13 intersetions: `runProject("simple_mc_6_13.JPG", 6)`
+
+![6_13 image](./simple_mc_6_13-out.png)
+
+- One of many random piles we made according to the game rules of dropping the sticks: `runProject("simple_mc_6_1a.JPG", 6)`
+
+![6_1a image](./rand_mc_6_1a-out.png)
+
+- Here you can see our line detection being stressed: `runProject("simple_mc_6_1b.JPG", 6)`
+
+![6_1b image](./rand_mc_6_1b-out.png)
+
+- One of the more interesting random piles we tested on: `runProject("simple_mc_6_4.JPG", 6)`
+
+![6_4 image](./rand_mc_6_4-out.png)
+
+- Another load bearing example which shows how our code just labels the potential issue sticks even if some are fine to pick up: 
+  `runProject("load-bearing_2.JPG", 4, 'debug', 'loadbearing')`
+
+![load bearing 2 image](./load-bearing_2-out.png)
